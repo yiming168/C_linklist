@@ -173,3 +173,32 @@ int free_all(linklist H) {
 
     return 0;
 }
+
+int list_headinsert(linklist H, linklist temp) {
+    temp->next = H->next;
+    H->next = temp;
+    return 0;
+}
+
+int list_reverse(linklist H) {
+    linklist p, temp;
+    if (H == NULL) {
+        printf("H is NULL\n");
+        return -1;
+    }
+
+    if (H->next == NULL || H->next->next == NULL) {
+        return 0;
+    }
+
+    p = H->next->next;
+    H->next->next = NULL;
+
+    while (p != NULL) {
+        temp = p;
+        p = p->next;
+        list_headinsert(H, temp);
+    }
+
+    return 0;
+}

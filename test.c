@@ -5,6 +5,7 @@
 
 void test_get();
 void test_insert();
+void test_delete();
 
 int main(int argc, char const *argv[]) {
     linklist H;
@@ -25,7 +26,7 @@ int main(int argc, char const *argv[]) {
 
     list_show(H);
 
-    list_delete(H, -4);  // 1 3 5 7
+    list_reverse(H);  // 1 3 5 7
     list_show(H);
 
     free_all(H);
@@ -80,6 +81,33 @@ void test_insert() {
 
     list_insert(H, 100, 0);  // 1 3 5 7
     list_show(H);
+
+    return;
+}
+
+void test_delete() {
+    linklist H;
+    int value;
+
+    H = list_create();
+    if (H == NULL) {
+        return;
+    }
+
+    printf("input:");
+    while (1) {
+        scanf("%d", &value);
+        if (value == -1) break;
+        list_tail_insert(H, value);
+        printf("input:");
+    }
+
+    list_show(H);
+
+    list_delete(H, -4);  // 1 3 5 7
+    list_show(H);
+
+    free_all(H);
 
     return;
 }

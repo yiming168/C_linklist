@@ -13,3 +13,5 @@ int list_show(linklist H);
 int list_delete(linklist H, int pos);
 int free_tail(linklist H);
 int free_all(linklist H);
+int list_headinsert(linklist H, linklist temp);
+int list_reverse(linklist H);
