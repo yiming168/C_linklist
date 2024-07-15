@@ -54,9 +54,10 @@ int list_show(linklist H) {
     }
     p = H;
     while (p->next != NULL) {
-        printf("%d\n", p->next->data);
+        printf("%d ", p->next->data);
         p = p->next;
     }
+    puts("");
 
     return 0;
 }
@@ -84,4 +85,27 @@ linklist list_get(linklist H, int pos) {
     }
     return p;
 }
-int list_insert(linklist H, data_t value, int pos) { return 0; }
+
+int list_insert(linklist H, data_t value, int pos) {
+    linklist preNode, newNode;
+    if (H == NULL) {
+        printf("H is NULL\n");
+        return -1;
+    }
+    // 1. locate the node of previous one
+    preNode = list_get(H, pos - 1);
+    if (preNode == NULL) return -1;
+
+    // 2. new node
+    if ((newNode = (linklist)malloc(sizeof(listnode))) == NULL) {
+        printf("Malloc failed\n");
+        return -1;
+    }
+    newNode->data = value;
+
+    // 3. link the two sides of the newNode.
+    newNode->next = preNode->next;
+    preNode->next = newNode;
+
+    return 0;
+}

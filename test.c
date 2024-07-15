@@ -3,10 +3,11 @@
 
 #include "linklist.h"
 
+void test_get();
+
 int main(int argc, char const *argv[]) {
     linklist H;
     int value;
-    linklist p;
 
     H = list_create();
     if (H == NULL) {
@@ -23,8 +24,34 @@ int main(int argc, char const *argv[]) {
 
     list_show(H);
 
-    p = list_get(H, 4);  // 1 3 5 7
-    if (p != NULL) printf("value = %d\n", p->data);
+    list_insert(H, 100, 0);  // 1 3 5 7
+    list_show(H);
 
     return 0;
+}
+
+void test_get() {
+    linklist H;
+    int value;
+    linklist p;
+
+    H = list_create();
+    if (H == NULL) {
+        return;
+    }
+
+    printf("input:");
+    while (1) {
+        scanf("%d", &value);
+        if (value == -1) break;
+        list_tail_insert(H, value);
+        printf("input:");
+    }
+
+    list_show(H);
+
+    p = list_get(H, 4);  // 1 3 5 7
+    if (p != NULL) printf("value = %d ", p->data);
+
+    return;
 }
