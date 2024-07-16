@@ -164,12 +164,24 @@ int free_tail(linklist H) {
 }
 
 int free_all(linklist H) {
-    while (H->next != NULL) {
-        free_tail(H);
+    linklist p, q;
+    if (H == NULL) {
+        printf("H is NULL\n");
+        return -1;
     }
-
-    free(H);
-    H = NULL;
+    p = H;
+    printf("free:");
+    while (p->next != NULL) {
+        q = p;
+        p = p->next;
+        printf("%d ", q->data);
+        free(q);
+        q = NULL;
+    }
+    printf("%d ", p->data);
+    free(p);
+    p = NULL;
+    puts("");
 
     return 0;
 }
@@ -201,4 +213,30 @@ int list_reverse(linklist H) {
     }
 
     return 0;
+}
+
+linklist list_adjmax(linklist H) {
+    if (H == NULL) {
+        printf("H is NULL\n");
+        return NULL;
+    }
+
+    if (H->next == NULL || H->next->next == NULL) {
+        printf("Elements are less than 2.\n");
+        return NULL;
+    }
+
+    linklist p = H->next;
+    linklist r = p;
+    data_t maxsum = p->data + p->next->data;
+
+    while (p->next->next != NULL) {
+        p = p->next;
+        if ((p->data + p->next->data) > maxsum) {
+            maxsum = p->data + p->next->data;
+            r = p;
+        }
+    }
+
+    return r;
 }
