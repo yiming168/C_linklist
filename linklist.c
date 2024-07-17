@@ -240,3 +240,38 @@ linklist list_adjmax(linklist H) {
 
     return r;
 }
+
+int list_merge(linklist H1, linklist H2) {
+    linklist p, q, r;
+
+    if (H1 == NULL || H2 == NULL) {
+        printf("List H1 or H2 is NULL\n");
+        return -1;
+    }
+
+    r = H1;
+    p = H1->next;
+    q = H2->next;
+    free(H2);
+    H2 = NULL;
+
+    while (p && q) {
+        if (p->data <= q->data) {
+            r->next = p;
+            r = r->next;
+            p = p->next;
+        } else {
+            r->next = q;
+            r = r->next;
+            q = q->next;
+        }
+    }
+
+    if (p == NULL) {
+        r->next = q;
+    } else {
+        r->next = p;
+    }
+
+    return 0;
+}
